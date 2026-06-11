@@ -1,14 +1,17 @@
+import type React from "react";
+
 // lucide-react removed brand icons; same 24x24 stroke style as the rest of the app
-export default function InstagramIcon({ className }: { className?: string }) {
+export default function InstagramIcon({ className, style, strokeWidth }: { className?: string; style?: React.CSSProperties; strokeWidth?: number }) {
   return (
     <svg
       className={className}
+      style={style}
       width="16"
       height="16"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.5"
+      strokeWidth={strokeWidth ?? 1.5}
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
