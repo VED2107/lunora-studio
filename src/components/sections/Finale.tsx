@@ -17,15 +17,21 @@ export default function Finale() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      const isMobile = window.matchMedia("(pointer: coarse)").matches;
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top top",
-          end: "+=300%",
-          pin: true,
-          scrub: 1,
-          onLeave: () => gsap.set(sectionRef.current, { autoAlpha: 0 }),
-          onEnterBack: () => gsap.set(sectionRef.current, { autoAlpha: 1 }),
+          start: isMobile ? "top 80%" : "top top",
+          end: isMobile ? "bottom 20%" : "+=300%",
+          pin: !isMobile,
+          scrub: isMobile ? false : 1,
+          ...(isMobile
+            ? {}
+            : {
+                onLeave: () => gsap.set(sectionRef.current, { autoAlpha: 0 }),
+                onEnterBack: () =>
+                  gsap.set(sectionRef.current, { autoAlpha: 1 }),
+              }),
         },
       });
 
