@@ -1,21 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-function clearStaleAuthCookies(request: NextRequest, response: NextResponse) {
-  const cookieNames = request.cookies.getAll().map((c) => c.name);
-  const sbCookies = cookieNames.filter(
-    (name) =>
-      name.startsWith("sb-") &&
-      (name.includes("-auth-token") || name.includes("auth-token-code-verifier"))
-  );
-  for (const name of sbCookies) {
-    if (/\.\d+$/.test(name)) {
-      response.cookies.delete(name);
-      request.cookies.delete(name);
-    }
-  }
-}
-
 const PROTECTED_PREFIXES = ["/account", "/admin"];
 
 function needsAuth(pathname: string) {
@@ -24,8 +9,6 @@ function needsAuth(pathname: string) {
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
-
-  clearStaleAuthCookies(request, supabaseResponse);
 
   const { pathname } = request.nextUrl;
 
