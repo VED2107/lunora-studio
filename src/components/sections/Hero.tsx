@@ -143,7 +143,7 @@ export default function Hero({ loaded = false }: { loaded?: boolean }) {
       ref={sectionRef}
       className="relative flex min-h-screen flex-col justify-between overflow-hidden bg-cream"
     >
-      <div className="pointer-events-none absolute inset-0">
+      <div className="pointer-events-none absolute inset-0 hidden sm:block">
         <div className="absolute -top-32 right-0 h-[500px] w-[500px] rounded-full bg-blush/15 blur-[120px]" />
         <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-cream-dark/60 blur-[100px]" />
         <div className="absolute top-1/3 left-1/2 h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-dusty-rose/5 blur-[80px]" />
@@ -306,8 +306,8 @@ export default function Hero({ loaded = false }: { loaded?: boolean }) {
         </div>
       </div>
 
-      {/* Floating particles */}
-      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+      {/* Floating particles — hidden on mobile for performance */}
+      <div className="pointer-events-none absolute inset-0 z-0 hidden overflow-hidden sm:block">
         {[...Array(18)].map((_, i) => (
           <span
             key={i}
