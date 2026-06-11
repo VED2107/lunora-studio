@@ -162,10 +162,12 @@ export default function AccountPage() {
           <Input
             id="full_name"
             {...register("full_name")}
+            aria-describedby={errors.full_name ? "full_name-error" : undefined}
+            aria-invalid={!!errors.full_name}
             className="border-[rgba(47,41,38,0.12)] bg-white focus-visible:ring-[#CDA4B5]"
           />
           {errors.full_name && (
-            <p className="text-xs text-red-600">{errors.full_name.message}</p>
+            <p id="full_name-error" role="alert" className="text-xs text-red-600">{errors.full_name.message}</p>
           )}
         </div>
 
@@ -179,14 +181,16 @@ export default function AccountPage() {
             type="tel"
             placeholder="+91 98765 43210"
             {...register("phone_number")}
+            aria-describedby={errors.phone_number ? "phone_number-error" : "phone_number-hint"}
+            aria-invalid={!!errors.phone_number}
             className="border-[rgba(47,41,38,0.12)] bg-white focus-visible:ring-[#CDA4B5]"
           />
           {errors.phone_number && (
-            <p className="text-xs text-red-600">
+            <p id="phone_number-error" role="alert" className="text-xs text-red-600">
               {errors.phone_number.message}
             </p>
           )}
-          <p className="text-xs text-[#7D7068]">
+          <p id="phone_number-hint" className="text-xs text-[#7D7068]">
             Used for order delivery coordination only
           </p>
         </div>

@@ -112,6 +112,7 @@ export default function Problem() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-3xl px-6 text-center">
+        <h2 className="sr-only">The Problem With Real Flowers</h2>
         <div className="mb-6 flex items-center justify-center gap-3">
           <span className="h-px w-12 bg-dusty-rose/40" />
           <span className="text-[10px] font-medium uppercase tracking-[0.35em] text-dusty-rose/60">

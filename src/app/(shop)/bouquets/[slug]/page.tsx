@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import { formatPrice } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import ProductActions from "@/components/product/ProductActions";
@@ -56,7 +57,28 @@ export default async function ProductPage({ params }: Props) {
 
   const primaryImage = images?.find((i: any) => i.is_primary) ?? images?.[0];
 
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.short_description || product.description || "",
+    image: primaryImage?.url,
+    brand: { "@type": "Brand", name: "The Lunora Studio" },
+    offers: {
+      "@type": "Offer",
+      price: product.base_price,
+      priceCurrency: "INR",
+      availability: "https://schema.org/InStock",
+      url: `https://thelunorastudio.com/bouquets/${product.slug}`,
+    },
+  };
+
   return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="grid gap-12 lg:grid-cols-2">
         {/* Images */}
@@ -72,7 +94,7 @@ export default async function ProductPage({ params }: Props) {
                 priority
               />
             ) : (
-              <div className="flex h-full items-center justify-center text-[#7D7068]">
+              <div className="flex h-full items-center justify-center text-muted">
                 No image available
               </div>
             )}
@@ -105,7 +127,7 @@ export default async function ProductPage({ params }: Props) {
                 <Badge className="bg-[#B89A6A]/10 text-[#B89A6A] text-[10px]">Bestseller</Badge>
               )}
             </div>
-            <p className="text-xs uppercase tracking-[0.2em] text-[#7D7068]">
+            <p className="text-xs uppercase tracking-[0.2em] text-muted">
               {product.product_type.replace(/_/g, " ")}
             </p>
             <h1 className="mt-2 font-[family-name:var(--font-cormorant)] text-3xl font-light text-[#2F2926] lg:text-4xl">
@@ -118,14 +140,14 @@ export default async function ProductPage({ params }: Props) {
               {formatPrice(product.base_price)}
             </span>
             {product.compare_at_price && (
-              <span className="text-lg text-[#7D7068] line-through">
+              <span className="text-lg text-muted line-through">
                 {formatPrice(product.compare_at_price)}
               </span>
             )}
           </div>
 
           {product.short_description && (
-            <p className="text-sm leading-relaxed text-[#7D7068]">
+            <p className="text-sm leading-relaxed text-muted">
               {product.short_description}
             </p>
           )}
@@ -148,11 +170,19 @@ export default async function ProductPage({ params }: Props) {
             }
           />
 
+          {/* Customise CTA */}
+          <Link
+            href={`/custom-orders?product=${product.slug}`}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-[rgba(47,41,38,0.12)] px-6 py-3.5 text-[11px] font-medium uppercase tracking-[0.2em] text-[#2F2926] transition-all hover:border-[#CDA4B5] hover:text-[#CDA4B5]"
+          >
+            Customise this Bouquet
+          </Link>
+
           {/* Description */}
           {product.description && (
             <div className="border-t border-[rgba(47,41,38,0.08)] pt-6">
               <h2 className="text-sm font-medium text-[#2F2926] mb-3">Description</h2>
-              <div className="text-sm leading-relaxed text-[#7D7068] whitespace-pre-line">
+              <div className="text-sm leading-relaxed text-muted whitespace-pre-line">
                 {product.description}
               </div>
             </div>
@@ -160,5 +190,6 @@ export default async function ProductPage({ params }: Props) {
         </div>
       </div>
     </div>
+    </>
   );
 }

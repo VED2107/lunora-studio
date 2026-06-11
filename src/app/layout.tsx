@@ -76,6 +76,26 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <meta name="theme-color" content="#F8F4EF" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "The Lunora Studio",
+              url: "https://thelunorastudio.com",
+              logo: "https://thelunorastudio.com/images/brand/logo.jpeg",
+              description: "Handcrafted pipe-cleaner bouquets that last forever. Custom colors, flowers, and packaging. Delivering across India.",
+              contactPoint: {
+                "@type": "ContactPoint",
+                telephone: "+91-81491-02923",
+                email: "lunorastudio.blooms@gmail.com",
+                contactType: "customer service",
+              },
+              sameAs: ["https://www.instagram.com/thelunorastudio"],
+            }),
+          }}
+        />
       </head>
       <body className="antialiased">
           <AuthProvider>

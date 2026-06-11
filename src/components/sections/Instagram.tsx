@@ -5,9 +5,9 @@ import Image from "next/image";
 import { gsap, ScrollTrigger } from "@/hooks/useGsap";
 
 const GALLERY = [
-  { src: "/images/bouquets/hero-bouquet.png", alt: "Handcrafted pink bouquet by The Lunora Studio" },
-  { src: "/images/bouquets/colorful-celebration.png", alt: "Colorful celebration bouquet" },
-  { src: "/images/bouquets/styled-congrats.png", alt: "Styled congratulations bouquet" },
+  { src: "/images/bouquets/hero-bouquet.png", alt: "Handcrafted pipe-cleaner pink flower bouquet by The Lunora Studio" },
+  { src: "/images/bouquets/colorful-celebration.png", alt: "Handcrafted pipe-cleaner flower bouquet — Colorful Celebration by The Lunora Studio" },
+  { src: "/images/bouquets/styled-congrats.png", alt: "Handcrafted pipe-cleaner flower bouquet — Styled Congratulations by The Lunora Studio" },
 ];
 
 export default function Instagram() {

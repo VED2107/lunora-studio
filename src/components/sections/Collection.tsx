@@ -116,7 +116,7 @@ export default function Collection() {
               style={{ transformStyle: "preserve-3d" }}
             >
               <div className="relative h-full w-full overflow-hidden rounded-2xl bg-cream-dark shadow-lg shadow-charcoal/5 ring-1 ring-charcoal/5 transition-shadow duration-500 group-hover:shadow-xl group-hover:shadow-dusty-rose/10">
-                <Image src={getSectionImage(sectionImages, `collection_${i + 1}`, bouquet.image)} alt={bouquet.name} fill className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
+                <Image src={getSectionImage(sectionImages, `collection_${i + 1}`, bouquet.image)} alt={`Handcrafted pipe-cleaner flower bouquet — ${bouquet.name} by The Lunora Studio`} fill className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/10 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-100" />
                 <div className="absolute bottom-0 left-0 right-0 p-5 lg:p-7">
                   <h3 className="font-heading text-2xl font-light text-cream lg:text-3xl">{bouquet.name}</h3>
@@ -137,7 +137,7 @@ export default function Collection() {
         <div className="mt-14 text-center">
           <Link href="/bouquets" className="btn-glow group inline-flex h-14 items-center gap-3 rounded-full border border-charcoal/12 px-10 text-[11px] font-medium uppercase tracking-[0.2em] text-charcoal transition-all hover:border-charcoal hover:bg-charcoal hover:text-cream">
             View All Bouquets
-            <svg className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+            <svg aria-hidden="true" className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
           </Link>
         </div>
       </div>

@@ -85,7 +85,7 @@ export default function Process() {
           {steps.map((step, i) => (
             <div key={step.num} className="process-card group flex w-[320px] shrink-0 flex-col lg:w-[400px]">
               <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-cream-dark">
-                <Image src={getSectionImage(sectionImages, `process_${i + 1}`, step.image)} alt={step.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="400px" />
+                <Image src={getSectionImage(sectionImages, `process_${i + 1}`, step.image)} alt={`Handcrafted pipe-cleaner bouquet — ${step.title} step by The Lunora Studio`} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="400px" />
                 <div className="absolute inset-0 bg-gradient-to-t from-charcoal/40 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6">
                   <span className="font-heading text-5xl font-light text-cream/30">{step.num}</span>

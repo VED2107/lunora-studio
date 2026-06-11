@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback, useId } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -33,6 +33,7 @@ export default function Navigation({ loaded = true }: { loaded?: boolean }) {
   const indicatorRef = useRef<HTMLSpanElement>(null);
   const linksContainerRef = useRef<HTMLDivElement>(null);
   const accentLineRef = useRef<HTMLDivElement>(null);
+  const menuId = useId();
 
   // -- Scroll detection --
   useEffect(() => {
@@ -114,11 +115,25 @@ export default function Navigation({ loaded = true }: { loaded?: boolean }) {
       if (isOpen) {
         document.body.style.overflow = "hidden";
         tlRef.current.play();
+        // Move focus to first link in menu after animation starts
+        setTimeout(() => {
+          const firstLink = menuRef.current?.querySelector<HTMLAnchorElement>(".mobile-link");
+          firstLink?.focus();
+        }, 400);
       } else {
         document.body.style.overflow = "";
         tlRef.current.reverse();
       }
     }
+  }, [isOpen]);
+
+  // ESC key closes mobile menu
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) setIsOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
   }, [isOpen]);
 
   // -- Magnetic hover indicator --
@@ -371,7 +386,9 @@ export default function Navigation({ loaded = true }: { loaded?: boolean }) {
                 <button
                   onClick={() => setIsOpen(!isOpen)}
                   className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 cursor-pointer"
-                  aria-label="Toggle menu"
+                  aria-label={isOpen ? "Close menu" : "Open menu"}
+                  aria-expanded={isOpen}
+                  aria-controls={menuId}
                 >
                   <span
                     className="block h-px w-5 bg-charcoal transition-all duration-500 origin-center"
@@ -397,6 +414,11 @@ export default function Navigation({ loaded = true }: { loaded?: boolean }) {
       {/* === Mobile Menu Overlay === */}
       <div
         ref={menuRef}
+        id={menuId}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation menu"
+        aria-hidden={!isOpen}
         className="fixed inset-0 z-40 flex flex-col items-center justify-center lg:hidden overflow-hidden"
         style={{
           clipPath: "inset(0% 0% 100% 0%)",
