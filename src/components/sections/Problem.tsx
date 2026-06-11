@@ -24,20 +24,37 @@ export default function Problem() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       const isMobile = window.matchMedia("(pointer: coarse)").matches;
+
+      if (isMobile) {
+        // Mobile: simple staggered entrance, no fades — all text stays visible
+        const lines = [".problem-line-1", ".problem-line-2", ".problem-line-3", ".problem-final"];
+        lines.forEach((sel, i) => {
+          gsap.fromTo(
+            sel,
+            { opacity: 0, yPercent: 20 },
+            {
+              opacity: 1,
+              yPercent: 0,
+              duration: 0.7,
+              delay: i * 0.15,
+              ease: "power2.out",
+              scrollTrigger: { trigger: sectionRef.current, start: "top 75%", once: true },
+            }
+          );
+        });
+        return;
+      }
+
+      // Desktop: scrub-driven cinematic sequence
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: isMobile ? "top 80%" : "top top",
-          end: isMobile ? "bottom 20%" : "+=200%",
-          pin: !isMobile,
-          scrub: isMobile ? false : 0.8,
-          ...(isMobile
-            ? {}
-            : {
-                onLeave: () => gsap.set(sectionRef.current, { autoAlpha: 0 }),
-                onEnterBack: () =>
-                  gsap.set(sectionRef.current, { autoAlpha: 1 }),
-              }),
+          start: "top top",
+          end: "+=200%",
+          pin: true,
+          scrub: 0.8,
+          onLeave: () => gsap.set(sectionRef.current, { autoAlpha: 0 }),
+          onEnterBack: () => gsap.set(sectionRef.current, { autoAlpha: 1 }),
         },
       });
 
