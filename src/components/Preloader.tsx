@@ -11,6 +11,7 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
   const counterRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
+    const isMobile = window.matchMedia("(pointer: coarse)").matches;
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         onComplete: () => {
@@ -22,7 +23,7 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
       const counter = { val: 0 };
       tl.to(counter, {
         val: 100,
-        duration: 1.8,
+        duration: isMobile ? 0.9 : 1.8,
         ease: "power2.inOut",
         onUpdate: () => {
           if (counterRef.current) {
@@ -56,18 +57,18 @@ export default function Preloader({ onComplete }: { onComplete: () => void }) {
       );
 
       // Hold
-      tl.to({}, { duration: 0.4 });
+      tl.to({}, { duration: isMobile ? 0.1 : 0.4 });
 
       // Fade everything out
       tl.to(
         [logoTextRef.current, taglineRef.current, lineRef.current, counterRef.current],
-        { opacity: 0, yPercent: -20, duration: 0.4, stagger: 0.05 }
+        { opacity: 0, yPercent: -20, duration: isMobile ? 0.2 : 0.4, stagger: 0.05 }
       );
 
       // Curtain reveal — split top/bottom
       tl.to(overlayRef.current, {
         clipPath: "inset(50% 0% 50% 0%)",
-        duration: 0.8,
+        duration: isMobile ? 0.4 : 0.8,
         ease: "power4.inOut",
       });
 

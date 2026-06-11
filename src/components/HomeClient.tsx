@@ -1,25 +1,27 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { ScrollTrigger } from "@/hooks/useGsap";
 import SmoothScroll from "@/components/SmoothScroll";
 import Preloader from "@/components/Preloader";
 import Navigation from "@/components/layout/Navigation";
 import Hero from "@/components/sections/Hero";
-import Problem from "@/components/sections/Problem";
-import Solution from "@/components/sections/Solution";
-import Process from "@/components/sections/Process";
-import Collection from "@/components/sections/Collection";
-import Stats from "@/components/sections/Stats";
-import Comparison from "@/components/sections/Comparison";
-import Testimonials from "@/components/sections/Testimonials";
-import Custom from "@/components/sections/Custom";
-import Instagram from "@/components/sections/Instagram";
-import FAQ from "@/components/sections/FAQ";
-import Finale from "@/components/sections/Finale";
-import CTA from "@/components/sections/CTA";
 import Footer from "@/components/layout/Footer";
-import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+
+const Problem = dynamic(() => import("@/components/sections/Problem"));
+const Solution = dynamic(() => import("@/components/sections/Solution"));
+const Process = dynamic(() => import("@/components/sections/Process"));
+const Collection = dynamic(() => import("@/components/sections/Collection"));
+const Stats = dynamic(() => import("@/components/sections/Stats"));
+const Comparison = dynamic(() => import("@/components/sections/Comparison"));
+const Testimonials = dynamic(() => import("@/components/sections/Testimonials"));
+const Custom = dynamic(() => import("@/components/sections/Custom"));
+const Instagram = dynamic(() => import("@/components/sections/Instagram"));
+const FAQ = dynamic(() => import("@/components/sections/FAQ"));
+const Finale = dynamic(() => import("@/components/sections/Finale"));
+const CTA = dynamic(() => import("@/components/sections/CTA"));
+const FloatingWhatsApp = dynamic(() => import("@/components/FloatingWhatsApp"));
 
 export default function HomeClient() {
   const [loaded, setLoaded] = useState(false);
