@@ -17,7 +17,7 @@ const STATIC_BOUQUETS = [
 ];
 
 const BENTO_CLASSES = [
-  "lg:col-span-2 lg:row-span-2",
+  "sm:col-span-2 lg:col-span-2 lg:row-span-2",
   "lg:col-span-1 lg:row-span-1",
   "lg:col-span-1 lg:row-span-2",
   "lg:col-span-1 lg:row-span-1",
@@ -112,7 +112,7 @@ export default function Collection() {
               key={bouquet.name}
               href={bouquet.slug ? `/bouquets/${bouquet.slug}` : "/bouquets"}
               ref={(el) => { if (el) cardsRef.current[i] = el; }}
-              className={`collection-item group cursor-pointer ${BENTO_CLASSES[i] ?? ""}`}
+              className={`collection-item group cursor-pointer aspect-[3/4] sm:aspect-[4/3] lg:aspect-auto ${BENTO_CLASSES[i] ?? ""}`}
               style={{ transformStyle: "preserve-3d" }}
             >
               <div className="relative h-full w-full overflow-hidden rounded-2xl bg-cream-dark shadow-lg shadow-charcoal/5 ring-1 ring-charcoal/5 transition-shadow duration-500 group-hover:shadow-xl group-hover:shadow-dusty-rose/10">

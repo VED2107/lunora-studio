@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { ScrollTrigger } from "@/hooks/useGsap";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -25,18 +25,49 @@ const FloatingWhatsApp = dynamic(() => import("@/components/FloatingWhatsApp"));
 
 export default function HomeClient() {
   const [loaded, setLoaded] = useState(false);
+  const isMobileRef = useRef(false);
+  const preloaderDoneRef = useRef(false);
+  const heroImgDoneRef = useRef(false);
 
-  // After hydration: skip preloader if already seen this session
   useEffect(() => {
+    isMobileRef.current = window.matchMedia("(pointer: coarse)").matches;
     if (sessionStorage.getItem("lunora_preloader")) {
       setLoaded(true);
     }
   }, []);
 
-  const handlePreloaderComplete = useCallback(() => {
-    sessionStorage.setItem("lunora_preloader", "1");
-    setLoaded(true);
+  // Safety timeout: never block >8s waiting for image on mobile
+  useEffect(() => {
+    if (!isMobileRef.current) return;
+    const id = setTimeout(() => {
+      heroImgDoneRef.current = true;
+      if (preloaderDoneRef.current) {
+        sessionStorage.setItem("lunora_preloader", "1");
+        setLoaded(true);
+      }
+    }, 8000);
+    return () => clearTimeout(id);
   }, []);
+
+  const trySetLoaded = useCallback(() => {
+    // On mobile: wait for hero image. On desktop: proceed immediately.
+    if (!isMobileRef.current || heroImgDoneRef.current) {
+      sessionStorage.setItem("lunora_preloader", "1");
+      setLoaded(true);
+    }
+  }, []);
+
+  const handlePreloaderComplete = useCallback(() => {
+    preloaderDoneRef.current = true;
+    trySetLoaded();
+  }, [trySetLoaded]);
+
+  const handleHeroImageLoad = useCallback(() => {
+    heroImgDoneRef.current = true;
+    if (preloaderDoneRef.current) {
+      trySetLoaded();
+    }
+  }, [trySetLoaded]);
 
   useEffect(() => {
     if (!loaded) return;
@@ -50,7 +81,7 @@ export default function HomeClient() {
       <SmoothScroll>
         <Navigation loaded={loaded} />
         <main>
-          <Hero loaded={loaded} />
+          <Hero loaded={loaded} onImageLoad={handleHeroImageLoad} />
           <Problem />
           <Solution />
           <Process />

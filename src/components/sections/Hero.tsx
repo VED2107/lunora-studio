@@ -6,7 +6,7 @@ import Link from "next/link";
 import { gsap, ScrollTrigger } from "@/hooks/useGsap";
 import { useSectionImages, getSectionImage } from "@/hooks/useSectionImages";
 
-export default function Hero({ loaded = false }: { loaded?: boolean }) {
+export default function Hero({ loaded = false, onImageLoad }: { loaded?: boolean; onImageLoad?: () => void }) {
   const sectionImages = useSectionImages();
   const sectionRef = useRef<HTMLElement>(null);
   const line1Ref = useRef<HTMLSpanElement>(null);
@@ -238,6 +238,8 @@ export default function Hero({ loaded = false }: { loaded?: boolean }) {
                 className="object-cover"
                 priority
                 sizes="(max-width: 768px) 90vw, 420px"
+                onLoad={onImageLoad}
+                onError={onImageLoad}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal/10 via-transparent to-transparent" />
             </div>
