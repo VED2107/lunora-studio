@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
+import { ScrollTrigger } from "@/hooks/useGsap";
 import SmoothScroll from "@/components/SmoothScroll";
 import Preloader from "@/components/Preloader";
 import Navigation from "@/components/layout/Navigation";
@@ -34,6 +35,12 @@ export default function HomeClient() {
     sessionStorage.setItem("lunora_preloader", "1");
     setLoaded(true);
   }, []);
+
+  useEffect(() => {
+    if (!loaded) return;
+    const id = setTimeout(() => ScrollTrigger.refresh(), 150);
+    return () => clearTimeout(id);
+  }, [loaded]);
 
   return (
     <>
