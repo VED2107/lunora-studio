@@ -119,7 +119,8 @@ export default function Stats() {
 
       <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-12">
         <div className="mb-10 text-center">
-          <div className="flex items-center justify-center gap-3">
+          <h2 className="sr-only">Our Journey So Far</h2>
+          <div className="flex items-center justify-center gap-3" aria-hidden="true">
             <span className="h-px w-8 bg-gold/30" />
             <span className="text-[10px] font-medium uppercase tracking-[0.35em] text-gold/60">
               Our Journey So Far
@@ -134,7 +135,7 @@ export default function Stats() {
               key={stat.label}
               className="stat-item group flex flex-col items-center rounded-2xl border border-charcoal/5 bg-warm-white/60 px-6 py-8 text-center backdrop-blur-sm transition-all duration-300 hover:border-dusty-rose/15 hover:bg-warm-white hover:shadow-lg hover:shadow-dusty-rose/5"
             >
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-blush/20 text-dusty-rose/70 transition-colors duration-300 group-hover:bg-dusty-rose/15 group-hover:text-dusty-rose">
+              <div aria-hidden="true" className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-blush/20 text-dusty-rose/70 transition-colors duration-300 group-hover:bg-dusty-rose/15 group-hover:text-dusty-rose">
                 {stat.icon}
               </div>
               <span className="gold-gradient font-heading text-4xl font-light lg:text-5xl">

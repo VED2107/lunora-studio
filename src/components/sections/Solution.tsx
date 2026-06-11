@@ -83,6 +83,7 @@ export default function Solution() {
           <span className="h-px w-12 bg-gold/40" />
         </div>
 
+        <h2 className="sr-only">Our Solution: Bouquets That Last Forever</h2>
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div className="relative flex items-center justify-center">
             <div className="stem-line absolute bottom-0 left-1/2 h-full w-px -translate-x-1/2 bg-gradient-to-t from-gold/30 to-transparent" />
