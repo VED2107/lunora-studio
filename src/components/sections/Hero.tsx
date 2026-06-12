@@ -6,7 +6,7 @@ import Link from "next/link";
 import { gsap, ScrollTrigger } from "@/hooks/useGsap";
 import { useSectionImages, getSectionImage } from "@/hooks/useSectionImages";
 
-export default function Hero({ loaded = false, onImageLoad }: { loaded?: boolean; onImageLoad?: () => void }) {
+export default function Hero({ loaded = false, isMobile = false }: { loaded?: boolean; isMobile?: boolean }) {
   const sectionImages = useSectionImages();
   const sectionRef = useRef<HTMLElement>(null);
   const line1Ref = useRef<HTMLSpanElement>(null);
@@ -21,6 +21,19 @@ export default function Hero({ loaded = false, onImageLoad }: { loaded?: boolean
 
   useEffect(() => {
     if (!loaded) return;
+
+    // On mobile: skip all GSAP, make elements visible immediately
+    if (isMobile) {
+      const refs = [tagRef, line1Ref, line2Ref, subRef, ctaRef, imgRef, floatCard1, floatCard2, marqueeRef];
+      refs.forEach((r) => {
+        if (!r.current) return;
+        r.current.style.visibility = "visible";
+        r.current.style.opacity = "1";
+        r.current.style.transform = "none";
+        r.current.style.clipPath = "";
+      });
+      return;
+    }
 
     const magneticCleanups: Array<() => void> = [];
 
@@ -136,7 +149,7 @@ export default function Hero({ loaded = false, onImageLoad }: { loaded?: boolean
       magneticCleanups.forEach((fn) => fn());
       ctx.revert();
     };
-  }, [loaded]);
+  }, [loaded, isMobile]);
 
   return (
     <section
@@ -238,8 +251,6 @@ export default function Hero({ loaded = false, onImageLoad }: { loaded?: boolean
                 className="object-cover"
                 priority
                 sizes="(max-width: 768px) 90vw, 420px"
-                onLoad={onImageLoad}
-                onError={onImageLoad}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal/10 via-transparent to-transparent" />
             </div>

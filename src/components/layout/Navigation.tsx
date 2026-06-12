@@ -49,6 +49,11 @@ export default function Navigation({ loaded = true }: { loaded?: boolean }) {
   // -- Entrance animation --
   useEffect(() => {
     if (!loaded || !navRef.current) return;
+    // Skip entrance animation on mobile — show nav immediately
+    if (window.matchMedia("(pointer: coarse)").matches) {
+      navRef.current.style.opacity = "1";
+      return;
+    }
     const ctx = gsap.context(() => {
       gsap.fromTo(
         navRef.current,
