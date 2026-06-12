@@ -2,13 +2,12 @@
 
 import { useState, useCallback, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
-import { ScrollTrigger } from "@/hooks/useGsap";
 import SmoothScroll from "@/components/SmoothScroll";
-import Preloader from "@/components/Preloader";
 import Navigation from "@/components/layout/Navigation";
 import Hero from "@/components/sections/Hero";
 import Footer from "@/components/layout/Footer";
 
+const Preloader = dynamic(() => import("@/components/Preloader"), { ssr: false });
 const Problem = dynamic(() => import("@/components/sections/Problem"));
 const Solution = dynamic(() => import("@/components/sections/Solution"));
 const Process = dynamic(() => import("@/components/sections/Process"));
@@ -25,63 +24,44 @@ const FloatingWhatsApp = dynamic(() => import("@/components/FloatingWhatsApp"));
 
 export default function HomeClient() {
   const [loaded, setLoaded] = useState(false);
-  const isMobileRef = useRef(false);
-  const preloaderDoneRef = useRef(false);
-  const heroImgDoneRef = useRef(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    isMobileRef.current = window.matchMedia("(pointer: coarse)").matches;
+    const mobile = window.matchMedia("(pointer: coarse)").matches;
+    setIsMobile(mobile);
+
+    if (mobile) {
+      // Mobile: skip preloader entirely — content shows immediately
+      sessionStorage.setItem("lunora_preloader", "1");
+      setLoaded(true);
+      return;
+    }
+
     if (sessionStorage.getItem("lunora_preloader")) {
       setLoaded(true);
     }
   }, []);
 
-  // Safety timeout: never block >3s waiting for image on mobile
-  useEffect(() => {
-    if (!isMobileRef.current) return;
-    const id = setTimeout(() => {
-      heroImgDoneRef.current = true;
-      if (preloaderDoneRef.current) {
-        sessionStorage.setItem("lunora_preloader", "1");
-        setLoaded(true);
-      }
-    }, 3000);
-    return () => clearTimeout(id);
-  }, []);
-
-  const trySetLoaded = useCallback(() => {
-    // On mobile: wait for hero image. On desktop: proceed immediately.
-    if (!isMobileRef.current || heroImgDoneRef.current) {
-      sessionStorage.setItem("lunora_preloader", "1");
-      setLoaded(true);
-    }
-  }, []);
-
   const handlePreloaderComplete = useCallback(() => {
-    preloaderDoneRef.current = true;
-    trySetLoaded();
-  }, [trySetLoaded]);
-
-  const handleHeroImageLoad = useCallback(() => {
-    heroImgDoneRef.current = true;
-    if (preloaderDoneRef.current) {
-      trySetLoaded();
-    }
-  }, [trySetLoaded]);
+    sessionStorage.setItem("lunora_preloader", "1");
+    setLoaded(true);
+  }, []);
 
   useEffect(() => {
-    if (!loaded) return;
-    const id = setTimeout(() => ScrollTrigger.refresh(), 150);
-    return () => clearTimeout(id);
-  }, [loaded]);
+    if (!loaded || isMobile) return;
+    // Only refresh ScrollTrigger on desktop where it's actually used
+    import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
+      setTimeout(() => ScrollTrigger.refresh(), 150);
+    });
+  }, [loaded, isMobile]);
 
   return (
     <>
-      {!loaded && <Preloader onComplete={handlePreloaderComplete} />}
+      {!loaded && !isMobile && <Preloader onComplete={handlePreloaderComplete} />}
       <SmoothScroll>
         <Navigation loaded={loaded} />
         <main>
-          <Hero loaded={loaded} onImageLoad={handleHeroImageLoad} />
+          <Hero loaded={loaded} isMobile={isMobile} />
           <Problem />
           <Solution />
           <Process />
