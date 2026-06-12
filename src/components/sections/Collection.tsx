@@ -12,7 +12,7 @@ const STATIC_BOUQUETS = [
   { name: "Blue Elegance", story: "A touch of calm, a whole lot of love.", occasion: "Thank You & Appreciation", image: "/images/bouquets/blue-lily-branded.jpeg" },
   { name: "Lavender Dreams", story: "Soft, serene, and full of tender meaning.", occasion: "Anniversaries & Romance", image: "/images/bouquets/purple-labeled.jpeg" },
   { name: "Blushing Petals", story: "Delicate as a whisper, bold as a declaration.", occasion: "Just Because", image: "/images/bouquets/pink-single-sunset.jpeg" },
-  { name: "Celebration Bloom", story: "Every color tells a story of love and togetherness.", occasion: "Congratulations & Milestones", image: "/images/bouquets/colorful-celebration.png" },
+  { name: "Celebration Bloom", story: "Every color tells a story of love and togetherness.", occasion: "Congratulations & Milestones", image: "/images/bouquets/colorful-celebration.webp" },
   { name: "Golden Hour", story: "Catching the warmth of golden light in every petal.", occasion: "Graduations & Achievements", image: "/images/bouquets/blue-lily-sunset.jpeg" },
 ];
 

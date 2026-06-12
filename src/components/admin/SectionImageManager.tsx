@@ -23,7 +23,7 @@ const SECTIONS: SectionConfig[] = [
     label: "Hero Section",
     description: "Main hero banner on the homepage",
     slots: [
-      { id: "hero_main", label: "Hero Main Image", fallback: "/images/bouquets/hero-bouquet.png" },
+      { id: "hero_main", label: "Hero Main Image", fallback: "/images/bouquets/hero-bouquet.webp" },
     ],
   },
   {
@@ -35,7 +35,7 @@ const SECTIONS: SectionConfig[] = [
       { id: "collection_2", label: "Slot 2", fallback: "/images/bouquets/blue-lily-branded.jpeg" },
       { id: "collection_3", label: "Slot 3 (Tall)", fallback: "/images/bouquets/purple-labeled.jpeg" },
       { id: "collection_4", label: "Slot 4", fallback: "/images/bouquets/pink-single-sunset.jpeg" },
-      { id: "collection_5", label: "Slot 5", fallback: "/images/bouquets/colorful-celebration.png" },
+      { id: "collection_5", label: "Slot 5", fallback: "/images/bouquets/colorful-celebration.webp" },
       { id: "collection_6", label: "Slot 6", fallback: "/images/bouquets/blue-lily-sunset.jpeg" },
     ],
   },

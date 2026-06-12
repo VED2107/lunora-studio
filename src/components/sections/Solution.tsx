@@ -95,7 +95,7 @@ export default function Solution() {
             <div className="stem-line absolute bottom-0 left-1/2 h-full w-px -translate-x-1/2 bg-gradient-to-t from-gold/30 to-transparent" />
             <div className="solution-image relative aspect-[3/4] w-full max-w-sm overflow-hidden rounded-[2rem] opacity-0">
               <Image
-                src="/images/bouquets/styled-congrats.png"
+                src="/images/bouquets/styled-congrats.webp"
                 alt="Handcrafted sunflower bouquet forming petal by petal"
                 fill
                 className="object-cover"

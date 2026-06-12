@@ -23,9 +23,9 @@ const LOCAL_IMAGES = [
   "pink-single-sunset.jpeg",
   "purple-collection.jpeg",
   "purple-labeled.jpeg",
-  "colorful-celebration.png",
-  "hero-bouquet.png",
-  "styled-congrats.png",
+  "colorful-celebration.webp",
+  "hero-bouquet.webp",
+  "styled-congrats.webp",
 ];
 
 export default function AdminMediaPage() {
