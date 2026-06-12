@@ -232,7 +232,7 @@ export default function Hero({ loaded = false, onImageLoad }: { loaded?: boolean
               className="relative aspect-[3/4] w-full max-w-[380px] overflow-hidden rounded-[2rem] shadow-2xl shadow-charcoal/10 ring-1 ring-charcoal/5 opacity-0 lg:max-w-[420px]"
             >
               <Image
-                src={getSectionImage(sectionImages, "hero_main", "/images/bouquets/hero-bouquet.png")}
+                src={getSectionImage(sectionImages, "hero_main", "/images/bouquets/hero-bouquet.webp")}
                 alt="Handcrafted bouquet by The Lunora Studio"
                 fill
                 className="object-cover"

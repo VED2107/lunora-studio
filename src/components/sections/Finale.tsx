@@ -75,7 +75,7 @@ export default function Finale() {
       <div className="finale-bg-image absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className="relative h-[300px] w-[220px] overflow-hidden rounded-2xl opacity-20 sm:h-[400px] sm:w-[280px]">
           <Image
-            src="/images/bouquets/styled-congrats.png"
+            src="/images/bouquets/styled-congrats.webp"
             alt="Lunora bouquet"
             fill
             className="object-cover"

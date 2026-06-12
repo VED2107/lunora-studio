@@ -36,7 +36,7 @@ export default function HomeClient() {
     }
   }, []);
 
-  // Safety timeout: never block >8s waiting for image on mobile
+  // Safety timeout: never block >3s waiting for image on mobile
   useEffect(() => {
     if (!isMobileRef.current) return;
     const id = setTimeout(() => {
@@ -45,7 +45,7 @@ export default function HomeClient() {
         sessionStorage.setItem("lunora_preloader", "1");
         setLoaded(true);
       }
-    }, 8000);
+    }, 3000);
     return () => clearTimeout(id);
   }, []);
 

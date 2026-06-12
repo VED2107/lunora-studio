@@ -8,6 +8,7 @@ import type { MouseEvent } from "react";
 import { gsap } from "@/hooks/useGsap";
 import { ShoppingBag } from "lucide-react";
 import { useCart } from "@/providers/cart-provider";
+import { useAuth } from "@/providers/auth-provider";
 import UserMenu from "./UserMenu";
 
 const NAV_LINKS = [
@@ -27,6 +28,7 @@ export default function Navigation({ loaded = true }: { loaded?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { itemCount } = useCart();
+  const { user } = useAuth();
   const pathname = usePathname();
   const menuRef = useRef<HTMLDivElement>(null);
   const tlRef = useRef<gsap.core.Timeline | null>(null);
@@ -235,7 +237,6 @@ export default function Navigation({ loaded = true }: { loaded?: boolean }) {
                     alt="The Lunora Studio"
                     width={80}
                     height={80}
-                    quality={100}
                     className="object-cover w-full h-full"
                   />
                 </div>
@@ -468,6 +469,15 @@ export default function Navigation({ loaded = true }: { loaded?: boolean }) {
             <span className="relative text-[10px] font-medium uppercase tracking-[0.22em] text-cream">
               Order Now
             </span>
+          </Link>
+
+          {/* Auth link */}
+          <Link
+            href={user ? "/account" : "/login"}
+            onClick={() => setIsOpen(false)}
+            className="mobile-link text-[10px] font-medium uppercase tracking-[0.22em] text-charcoal/50 transition-colors duration-300 hover:text-charcoal mt-2"
+          >
+            {user ? "My Account" : "Sign In"}
           </Link>
 
           <div className="mobile-link mt-6 flex items-center gap-6">
