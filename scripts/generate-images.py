@@ -6,7 +6,11 @@ from google.genai import types
 import base64
 import pathlib
 
-API_KEY = os.environ.get("GEMINI_API_KEY", "REDACTED_KEY")
+API_KEY = os.environ.get("GEMINI_API_KEY")
+if not API_KEY:
+    print("ERROR: GEMINI_API_KEY environment variable is not set.")
+    print("  Set it with: export GEMINI_API_KEY='your-key-here'")
+    sys.exit(1)
 OUTPUT_DIR = pathlib.Path(__file__).parent.parent / "public" / "images" / "bouquets"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
