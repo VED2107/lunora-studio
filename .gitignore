@@ -37,6 +37,10 @@ yarn-error.log*
 # local scratch assets
 ChatGPT Image*.png
 design-system/
+reffrence/
+audit/
+logo/
+output/
 *.bak
 
 # local tool settings

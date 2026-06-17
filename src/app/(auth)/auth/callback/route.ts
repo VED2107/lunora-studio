@@ -8,12 +8,6 @@ export async function GET(request: Request) {
   const errorParam = searchParams.get("error");
   const errorDescription = searchParams.get("error_description");
 
-  // Log the full callback URL for debugging
-  console.log("[Auth Callback] Full URL:", request.url);
-  console.log("[Auth Callback] code:", code ? "present" : "MISSING");
-  console.log("[Auth Callback] error param:", errorParam);
-  console.log("[Auth Callback] error_description:", errorDescription);
-
   // If Supabase/Google returned an error directly
   if (errorParam) {
     console.error("[Auth Callback] OAuth error:", errorParam, errorDescription);
